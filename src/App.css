@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+  @theme{
+      --color-primary-color: #8200db;
+      --color-primary-color-hover:#ad46ff;
+      --color-mint-600: #00b89c;
+      --color-mint-700: #009688;
+      --color-mint-800: #00796b;
+      --color-mint-900: #004d40;
+  
+  }
+
+  .toast{
+    background-color: var(--color-primary-color-hover) !important;
+  }
