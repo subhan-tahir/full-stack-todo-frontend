@@ -10,6 +10,18 @@
   
   }
 
-  .toast{
-    background-color: var(--color-primary-color-hover) !important;
+  .custom-toast{
+    background-color: black;
+    color: white
+  }
+  /* Override the close icon color */
+.Toastify__close-button {
+  color: var(--color-primary-color-hover) !important; /* change to your desired color */
+  opacity: 1; /* ensure it's fully visible */
+}
+.toastify-progress-bar{
+  background-color: var(--color-primary-color-hover) !important;
+}
+  .todo-checkbox{
+    accent-color: var(--color-primary-color-hover) !important;
   }

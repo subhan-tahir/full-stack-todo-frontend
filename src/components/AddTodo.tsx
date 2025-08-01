@@ -1,21 +1,19 @@
-import axios from "axios";
+
 import { useState } from "react";
+import { useTodos } from "../context/TodoContext";
 
-
-const AddTodo = ({ onAddTodo }: { onAddTodo: (todo: any) => void }) => {
+const AddTodo = () => {
     const [value, setValue] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const { addTodo } = useTodos();
     const handleSubmit = async (event: React.FormEvent) => {
-        console.log(import.meta.env.BASE_URL);
         event.preventDefault();
         if (!value) return setError("Please enter a todo");
         console.log("Todo added", value);
         try {
             setLoading(true);
-            const res = await axios.post(`http://localhost:4000/todos/create`, { title: value });
-            onAddTodo(res.data);
-
+            addTodo(value);
         }
         catch (error: any) {
             console.log(error, "error");
