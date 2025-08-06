@@ -65,13 +65,13 @@ const TodoItem = ({ todo }: TodoItemProps) => {
                 <div className="flex space-x-4 items-center">
                     <button
                         onClick={() => deleteTodo(todo.id)}
-                        className="bg-red-300 text-red-600 hover:text-red-500 p-1 rounded-full"
+                        className="bg-red-300 text-red-600 cursor-pointer hover:text-red-500 p-1 rounded-full"
                     >
                         <MdDeleteOutline className="text-lg" />
                     </button>
                     <button
                         onClick={() => setShowModal(true)}
-                        className="bg-purple-400 text-purple-800 hover:text-purple-500 p-1 rounded-full"
+                        className="bg-purple-400 text-purple-800 cursor-pointer hover:text-purple-500 p-1 rounded-full"
                     >
                         <TbEdit className="text-lg" />
                     </button>
