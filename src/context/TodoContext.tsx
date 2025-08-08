@@ -16,7 +16,7 @@ interface TodoContextType {
 }
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_LIVE_URL || "http://localhost:3000";
 console.log('API_URL', API_URL);
 export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     const [todos, setTodos] = useState<Todo[]>([]);
