@@ -16,7 +16,7 @@ interface TodoContextType {
 }
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
-const API_URL = import.meta.env.VITE_API_LIVE_URL || "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_LIVE_URL;
 console.log('API_URL', API_URL);
 export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -33,7 +33,7 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    console.log('import.meta.env.BASE_URL', import.meta.env.BASE_URL);
+    
     const addTodo = async (title: string) => {
         console.log('add todo title...', title);
         try {
