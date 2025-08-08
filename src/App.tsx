@@ -1,6 +1,7 @@
 
 import './App.css'
 import Todo from './components/Todo'
+import 'react-loading-skeleton/dist/skeleton.css';
 function App() {
 
   return (

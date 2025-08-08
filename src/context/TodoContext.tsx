@@ -6,9 +6,11 @@ export interface Todo {
     id: number;
     title: string;
     completed: boolean;
+
 }
 
 interface TodoContextType {
+    loading: boolean;
     todos: Todo[];
     addTodo: (title: string) => Promise<void>;
     updateTodo: (id: number, title: string) => Promise<void>;
@@ -20,20 +22,24 @@ const API_URL = import.meta.env.VITE_API_LIVE_URL;
 console.log('API_URL', API_URL);
 export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     const [todos, setTodos] = useState<Todo[]>([]);
-
+    const [loading, setLoading] = useState(true);
 
 
     const fetchTodos = async () => {
         try {
+            setLoading(true);
             const res = await axios.get(`${API_URL}/todos `);
             console.log('All todos', res.data);
             setTodos(res.data); // Adjust based on your actual API shape
         } catch (error) {
             toast.error("Failed to load todos");
         }
+        finally {
+            setLoading(false);
+        }
     };
 
-    
+
     const addTodo = async (title: string) => {
         console.log('add todo title...', title);
         try {
@@ -72,7 +78,7 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
         fetchTodos();
     }, []);
     return (
-        <TodoContext.Provider value={{ todos, addTodo, updateTodo, deleteTodo }}>
+        <TodoContext.Provider value={{ todos, addTodo, updateTodo, deleteTodo, loading }}>
             {children}
         </TodoContext.Provider>
     );
