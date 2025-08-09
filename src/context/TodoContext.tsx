@@ -13,7 +13,7 @@ interface TodoContextType {
     loading: boolean;
     todos: Todo[];
     addTodo: (title: string) => Promise<void>;
-    updateTodo: (id: number, title: string) => Promise<void>;
+    updateTodo: (id: number, title: string, completed: boolean) => Promise<void>;
     deleteTodo: (id: number) => Promise<void>;
 }
 
@@ -56,10 +56,10 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    const updateTodo = async (id: number, title: string) => {
+    const updateTodo = async (id: number, title: string, completed: boolean) => {
         try {
             setLoading(true);
-            const res = await axios.put(`${API_URL}/todos/${id}`, { title: title });
+            const res = await axios.put(`${API_URL}/todos/${id}`, { title: title, completed: completed });
             console.log('updated title', title)
             setTodos((prev) =>
                 prev.map((todo) => (todo.id === id ? res.data.todo : todo))
