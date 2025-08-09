@@ -5,22 +5,20 @@ import { useTodos } from "../context/TodoContext";
 const AddTodo = () => {
     const [value, setValue] = useState("");
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
-    const { addTodo } = useTodos();
+
+    const { addTodo,loading } = useTodos();
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         if (!value) return setError("Please enter a todo");
         console.log("Todo added", value);
         try {
-            setLoading(true);
-            addTodo(value);
+
+          await  addTodo(value);
         }
         catch (error: any) {
             console.log(error, "error");
         }
-        finally {
-            setLoading(false);
-        }
+      
         setValue("");
         setError("");
     };

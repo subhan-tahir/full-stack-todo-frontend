@@ -18,7 +18,7 @@ const TodoList = () => {
       {todos.map((todo: any) => (
         loading ? 
         Array(4).fill(0).map((_, i) => (
-          <div key={i} className="p-3 bg-[#1e1e1e] rounded-lg">
+          <div key={i} className="p-3 bg-[#838181] rounded-lg">
             <Skeleton height={20} width={`80%`} baseColor="#2e2e2e" highlightColor="#444" />
           </div>
         )) : todos.length > 0 ? 

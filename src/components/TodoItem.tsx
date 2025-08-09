@@ -4,6 +4,7 @@ import { motion } from "framer-motion"; // Correct import
 import { useEffect, useState } from "react";
 import UpdateModal from "./UpdateModal";
 import { useTodos } from "../context/TodoContext";
+import DeleteModal from "./DeleteModal";
 
 interface Todo {
     id: number;
@@ -19,29 +20,8 @@ const TodoItem = ({ todo }: TodoItemProps) => {
     useEffect(() => {
         console.log('todo', todo);
     }, [])
-    const [showModal, setShowModal] = useState(false);
-    const { deleteTodo, updateTodo } = useTodos()
-    //   const handleDelete = async () => {
-    //     try {
-    //       await axios.delete(`http://localhost:3000/todos/${todo.id}`);
-    //       onDeleteTodo(todo.id);
-    //     } catch (error) {
-    //       console.error("Delete failed", error);
-    //     }
-    //   };
-
-    //   const handleUpdate = async (updatedTitle: string) => {
-    //     try {
-    //       const response = await axios.put(`http://localhost:3000/todos/${todo.id}`, {
-    //         title: updatedTitle,
-    //       });
-    //       onUpdateTodo(response.data.todo);
-    //       setShowModal(false);
-    //     } catch (error) {
-    //       console.error("Update failed", error);
-    //     }
-    //   };
-
+    const [showModal, setShowModal] = useState<string | null>(null);
+    const { deleteTodo, updateTodo, loading } = useTodos()
     return (
         <>
             <motion.div
@@ -64,13 +44,13 @@ const TodoItem = ({ todo }: TodoItemProps) => {
                 </div>
                 <div className="flex space-x-4 items-center">
                     <button
-                        onClick={() => deleteTodo(todo.id)}
+                        onClick={() => setShowModal('delete')}
                         className="bg-red-300 text-red-600 cursor-pointer hover:text-red-500 p-1 rounded-full"
                     >
                         <MdDeleteOutline className="text-lg" />
                     </button>
                     <button
-                        onClick={() => setShowModal(true)}
+                        onClick={() => setShowModal('update')}
                         className="bg-purple-400 text-purple-800 cursor-pointer hover:text-purple-500 p-1 rounded-full"
                     >
                         <TbEdit className="text-lg" />
@@ -78,13 +58,23 @@ const TodoItem = ({ todo }: TodoItemProps) => {
                 </div>
             </motion.div>
 
-            {showModal && (
+            {showModal === 'update' && (
                 <UpdateModal
-                    onClose={() => setShowModal(false)}
+                    onClose={() => setShowModal(null)}
                     onUpdate={(newTitle) => updateTodo(todo.id, newTitle)}
                     initialTitle={todo.title}
+                    loading={loading}
                 />
             )}
+
+            {/*Delete Modal */}
+            {
+                showModal === 'delete' && (
+                    <DeleteModal onClose={() => setShowModal(null)} onDelete={() => deleteTodo(todo.id)}
+                        loading={loading}
+                    />
+                )
+            }
         </>
     );
 };

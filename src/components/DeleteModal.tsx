@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 
 interface UpdateModalProps {
   onClose: () => void;
-  onUpdate: (title: string) => void;
-  initialTitle: string;
+  onDelete: (title: string) => void;
   loading: boolean
+
 }
 
-const UpdateModal: React.FC<UpdateModalProps> = ({ onClose, onUpdate, initialTitle, loading }) => {
-  const [title, setTitle] = useState(initialTitle);
-  
+const DeleteModal: React.FC<UpdateModalProps> = ({ onClose,onDelete,loading }) => {
+
   return (
     <div className="fixed inset-0 z-50 backdrop-blur bg-opacity-50 flex items-center justify-center">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
@@ -23,12 +22,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ onClose, onUpdate, initialTit
           </button>
         </div>
 
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-primary-color"
-        />
+      
 
         <div className="flex justify-end space-x-2">
           <button
@@ -38,11 +32,11 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ onClose, onUpdate, initialTit
             Cancel
           </button>
           <button
-            onClick={() => { onUpdate(title); onClose(); }}
+            onClick={() => {onDelete(''), onClose(); }}
             className="cursor-pointer px-4 py-2 rounded-lg bg-primary-color-hover text-white hover:bg-primary-color"
             disabled={loading}
           >
-            {loading ? 'Updating...' : 'Update'}
+            {loading ? 'Deleting...' : 'Delete'}
           </button>
         </div>
       </div>
@@ -50,4 +44,4 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ onClose, onUpdate, initialTit
   );
 };
 
-export default UpdateModal;
+export default DeleteModal;

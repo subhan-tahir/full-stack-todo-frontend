@@ -43,6 +43,7 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     const addTodo = async (title: string) => {
         console.log('add todo title...', title);
         try {
+            setLoading(true);
             const res = await axios.post(`${API_URL}/todos/create`, { title: title });
             console.log('add todo res...', res.data);
             setTodos((prev) => [...prev, res.data]);
@@ -50,10 +51,14 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
         } catch (err) {
             toast.error("Failed to add todo");
         }
+        finally {
+            setLoading(false);
+        }
     };
 
     const updateTodo = async (id: number, title: string) => {
         try {
+            setLoading(true);
             const res = await axios.put(`${API_URL}/todos/${id}`, { title: title });
             console.log('updated title', title)
             setTodos((prev) =>
@@ -63,15 +68,22 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
         } catch (err) {
             toast.error("Update failed");
         }
+        finally {
+            setLoading(false);
+        }
     };
 
     const deleteTodo = async (id: number) => {
         try {
+            setLoading(true);
             await axios.delete(`${API_URL}/todos/${id}`);
             setTodos((prev) => prev.filter((todo) => todo.id !== id));
             toast.success("Todo deleted!");
         } catch (err) {
             toast.error("Delete failed");
+        }
+        finally {
+            setLoading(false);
         }
     };
     useEffect(() => {
